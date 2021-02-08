@@ -1,0 +1,49 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-success" role="alert">{{Message}}</div>
+    {% endif %}
+
+    <h1>Bedankt voor uw bestelling!</h1>
+    {{test}}
+    <div id="cart_tabel">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Aantal</th>
+                    <th>Prijs (p/s)</th>
+                    <th colspan="3">Prijs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in Cart %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td class="amount">{{ product.amount }}</td>
+                    <td>€ {{product.price_one}}</td>
+                    <td>€ {{product.price_many}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>Totaal</th>
+                    <td colspan="2"></td>
+                    <th colspan="3">€ {{ Total }}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h4 id="address_h">Uw bestelling wordt verzonden naar:</h4>
+        {% for address in Address %}
+        <div id="address">
+            <i>Adres: {{address.street}} {{address.number}}</i><br>
+            <i>Postcode: {{address.zipcode}}</i><br>
+            <i>Stad: {{address.city}}</i><br>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

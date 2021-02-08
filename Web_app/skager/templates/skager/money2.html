@@ -1,0 +1,42 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-info" role="alert">{{Message}}</div>
+    {% endif %}
+
+    <h1>Bereken wisselkoersen</h1>
+    <div>
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="form-group row col-3">
+                <label>Te ontvangen bedrag</label>
+                <input name="amount" type="number" step="0.01" class="form-control" value="{{saved_amount}}">
+                <div class="invalid-feedback">
+                    Voer een bedrag in met maximaal 2 decimalen
+                </div>
+            </div>
+            {% load static %}
+            <a href="{% url 'money' %}"><img src="{% static 'switch.png' %}" class="icon2"></a>
+            <div class="form-group row col-3">
+                <label>in de valuta-eenheid</label>
+                <select name="from_currency" multiple class="form-control" required>
+                    {% for currency in Currency %}
+                    <option value="{{currency}}">{{currency}}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    Selecteer valuta eenheid
+                </div>
+            </div>
+            <div class="form-group">
+            {% if Receive %}
+                <h5>Het ontvangen van <span id="receive"> {{saved_amount}} {{from_currency}}</span> bedraagt <span id="EUR">€ {{Receive}}</span></h5></div>
+            {% endif %}
+                <button onclick="function()" type="submit" class="btn btn-primary">Bereken</button>
+            </div>
+        </form>    
+    </div>
+    
+{% endblock %}

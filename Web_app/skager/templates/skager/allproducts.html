@@ -1,0 +1,55 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-info" role="alert">{{Name}} {{Message}} ({{Amount}})</div>
+    {% elif Message1 %}
+    <div class="alert alert-info" role="alert">{{Message1}} <a href="{% url 'login' %}" class="link">{{Message2}}</a> {{Message3}}</div>
+    {% endif %}
+
+    <h1>Alle producten</h1>
+    <div>
+        <form action="{% url 'all_products' %}" method="POST">
+        {% csrf_token %}
+            <div class="form-row">
+                {% load static %}
+                <div class="form-group">
+                    <input name="query" type="text" class="form-control" placeholder="Zoekterm">
+                </div>
+                <div class="form-group">
+                    <button type="submit"><img src="{% static 'images/search.png' %}" class="icon"></button>
+                </div>
+            </div>
+        </form>
+        {% if Query %}
+            {% if Count == 1 %}
+            <h5 class="amount">Er is {{Count}} zoekresultaat gevonden voor "{{Query}}"</h5>
+            {% else %}
+            <h5 class="amount">Er zijn {{Count}} zoekresultaten gevonden voor "{{Query}}"</h5>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="product_card">
+        {% for product in ProductList %}
+        <div class="card">            
+            <a href="{% url 'details' product.category product.name %}"><img src="{{product.image.url}}" class="card-img-top" height="120px"></a>
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+            </div>
+            <div class="card-footer bg-transparent card-body">
+                <p class="card-text"><b>€ {{product.price}}</b></p>
+            </div>
+            <div class="card-footer bg-transparent card-body">
+                {% if User %}
+                <a href="{% url 'add' product.category product.name product.price 'allproducts' %}" class="btn btn-primary">Toevoegen</a>
+                {% else %}
+                <a href="{% url 'message' 'allproducts' %}" class="btn btn-primary">Toevoegen</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

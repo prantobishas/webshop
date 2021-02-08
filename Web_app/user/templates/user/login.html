@@ -1,0 +1,42 @@
+{% extends "user/base.html" %}
+
+{% block body %}
+    
+    <div class="center_border login">
+        <div class="border_top"><h3 class="border_header">Inloggen</h3></div>
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            {% if Message %}
+            <div class="alert alert-warning" role="alert">
+                {{ Message }}
+            </div>
+            {% endif %}
+            <fieldset>
+                <div class="form-group col-10">
+                    <label>Gebruikersnaam</label>
+                    <input name="username" type="text" class="form-control" placeholder="Gebruikersnaam" required>
+                    <div class="invalid-feedback">
+                        Vul aub uw gebruikersnaam in.
+                    </div>
+                </div>
+                <div class="form-group col-10">
+                    <label>Wachtwoord</label>
+                    <input name="password" type="password" class="form-control" placeholder="Wachtwoord" required>
+                    <div class="invalid-feedback">
+                        Vul aub uw wachtwoord in.
+                    </div>
+                </div>
+                <div class="border_content">
+                    <button onclick="function()" class="btn m-2" type="submit">Inloggen</button>
+                    <div>
+                        <a href="{% url 'register' %}">Nog geen account?</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'home' %}">Doorgaan zonder in te loggen</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    
+{% endblock %}

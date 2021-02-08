@@ -1,0 +1,45 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-info" role="alert">{{Name}} {{Message}} ({{Amount}})</div>
+    {% endif %}
+
+    <div class="details">
+        {% for product in Product %}
+        <h1>{{product.name}}</h1>
+        <div>
+            <img src="{{product.image.url}}" width="600px" height="400px">
+        </div>
+        <div>
+            <h2>€&nbsp;{{product.price}}</h2>
+        </div>
+        <div>{{product.description}}</div>
+        <div><a href="{% url 'add' CurrentCat product.name product.price 'details' %}" class="btn btn-primary button">Toevoegen aan winkelwagen</a></div>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h3>Aanbevolen</h3>
+        <div class="product_card">
+            {% for product in ProductList %}
+                {% if product.name == Name %}
+                {% else %}
+                <div class="card">            
+                    <a href="{% url 'details' CurrentCat product.name %}"><img src="{{product.image.url}}" class="card-img-top" height="120px"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                    </div>
+                    <div class="card-footer bg-transparent card-body">
+                        <p class="card-text"><b>€ {{product.price}}</b></p>
+                    </div>
+                    <div class="card-footer bg-transparent card-body">
+                        <a href="{% url 'add' CurrentCat product.name product.price 'details' %}" class="btn btn-primary">Toevoegen</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

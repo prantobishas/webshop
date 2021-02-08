@@ -1,0 +1,62 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-success" role="alert">{{Message}}</div>
+    {% endif %}
+
+    <div class="home">
+        <div class="row">
+            <div class="column">
+                {% load static %}
+                <h4><b>Locatie</b></h4>
+                <img src="{% static 'images/skagerhof.jpg' %}" style="float: left; padding: 15px;">
+                <p>Het Skagermultishop bevindt zich in het winkelcentrum Skagerhof op Skagerrak 210,
+                    2133DW te Hoofddorp. Het winkelcentrum bevat gratis parkeergelegenheid. 
+                    Ook is deze bestemming gemakkelijk te bereiken met het OV, door de bus 300
+                    te nemen naar Bornholm. Deze locatie is omringd door scholen en bevind zich 
+                    daarom in een schoolzone met een beperkt snelheidslimiet van 30 km/h</p>
+            </div>
+            <div class="column">
+                <h4><b>Openingstijden</b></h4>
+                <table class="table" id="schedule" style="width: 400px; margin-top: 20px;">
+                    <tbody style="text-align: center;">
+                        <tr>
+                            <td>Maandag</td>
+                            <td>11:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Dinsdag</td>
+                            <td>9:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Woensdag</td>
+                            <td>9:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Donderdag</td>
+                            <td>9:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Vrijdag</td>
+                            <td>9:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Zaterdag</td>
+                            <td>9:00 - 17:00</td>
+                        </tr>
+                        <tr>
+                            <td>Zondag</td>
+                            <td><b>Gesloten</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Op nationale feestdagen zijn wij gesloten.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

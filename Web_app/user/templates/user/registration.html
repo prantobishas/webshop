@@ -1,0 +1,47 @@
+{% extends "user/base.html" %}
+
+{% block body %}
+    
+    <div class="center_border login">
+        <div class="border_top"><h3 class="border_header">Registreren</h3></div>
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            {% if Message %}
+            <div class="alert alert-warning" role="alert">
+                {{ Message }}
+            </div>
+            {% endif %}
+            <fieldset>
+                <div class="form-group col-11">
+                    <label>Gebruikersnaam</label>
+                    <input name="username" type="text" class="form-control" placeholder="Gebruikersnaam" value="{{SavedName}}" required>
+                </div>
+                <div class="form-group col-11">
+                    <label>E-mail</label>
+                    <input name="email" type="text" class="form-control" placeholder="E-mail" value="{{SavedEmail}}" required>
+                </div>
+                <div class="form-group col-11">
+                    <label>Wachtwoord</label>
+                    <input name="password1" type="password" class="form-control" placeholder="Wachtwoord" required>
+                    <small id="hint_id_password1" class="form-text text-muted">
+                        <ul>
+                            <li>Mag niet overeenkomen met uw gebruikersnaam.</li>
+                            <li>Moet uit minstens 8 karakters bestaan.</li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="form-group col-11">
+                    <label>Herhaal wachtwoord</label>
+                    <input name="password2" type="password" class="form-control" placeholder="Wachtwoord" required>
+                </div>
+                <div class="border_content">
+                    <button onclick="function()" class="btn m-2" type="submit">Registreren</button>
+                    <div>
+                        <a href="{% url 'login' %}">Heeft u al een account?</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    
+{% endblock %}

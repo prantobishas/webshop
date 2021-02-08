@@ -1,0 +1,72 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-info" role="alert">{{Name}} {{Message}}</div>
+    {% endif %}
+
+    <h1>Mijn winkelwagen</h1>
+    {% if Cart %}
+    <div id="cart_tabel">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Aantal</th>
+                    <th>Prijs (p/s)</th>
+                    <th colspan="3">Prijs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in Cart %}
+                <tr>
+                    <td ><a href="{% url 'details' product.category product.name %}">{{ product.name }}</a></td>
+                    <td class="amount">{{ product.amount }}</td>
+                    <td>€ {{product.price_one}}</td>
+                    <td>€ {{product.price_many}}</td>
+                    <td><a href= "{% url 'delete' product.name %}" class="delete">verwijder (1)</td></a>
+                    <td><a href= "{% url 'delete_all' product.name %}" class="delete">verwijder allen</td></a>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>Totaal</th>
+                    <td colspan="2"></td>
+                    <th colspan="3">€ {{ Total }}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% if Address %}
+        {% for address in Address %}
+        <div id="address">
+            <b>Opgeslagen adresgegevens</b><br>
+            <i>Adres: {{address.street}} {{address.number}}</i><br>
+            <i>Postcode: {{address.zipcode}}</i><br>
+            <i>Stad: {{address.city}}</i><br>
+            <a href="{% url 'address2' %}" class="link">Ander adres</a>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div>
+        <form action="{% url 'cart' %}" method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" 
+                            id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                        Ik bevestig hierbij mijn bestelling.
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary">Plaats bestelling</button></a>
+        </form>
+    </div>
+    {% else %}
+    <h4>Er zijn nog geen items in de winkelwagen</h4>
+    {% endif %}
+
+{% endblock %}

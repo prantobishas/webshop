@@ -1,0 +1,49 @@
+{% extends "skager/base.html" %}
+
+{% block body %}
+
+    {% if Message %}
+    <div class="alert alert-info" role="alert">{{Message}}</div>
+    {% endif %}
+
+    <h3>Voer uw adresgegevens in</h3>
+    <div>
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Straat</label>
+                    <input name="street" type="text" class="form-control" placeholder="Skagerrak" required>
+                    <div class="invalid-feedback">
+                        Het adress is benodigd
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Huisnummer</label>
+                    <input name="number" type="number" class="form-control" placeholder="210" required>
+                    <div class="invalid-feedback">
+                        Het huisnummer is benodigd
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="inputCity">Postcode</label>
+                    <input name="zipcode" type="text" class="form-control" placeholder="1234AB" required>
+                    <div class="invalid-feedback">
+                        De postcode is benodigd
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputZip">Stad</label>
+                    <input name="city" type="text" class="form-control" placeholder="Hoofddorp" required>
+                    <div class="invalid-feedback">
+                        De stad is benodigd
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Adresgegevens opslaan</button>
+        </form>
+    </div>
+
+{% endblock %}
